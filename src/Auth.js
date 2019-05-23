@@ -1,8 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { connect } from "react-redux";
 
-function App() {
-  const [signIn, setSignIn] = useState(null);
+import { signIn, signOut } from "./actions";
+
+function App(props) {
   const auth = useRef();
+  const { signIn, signOut, isSignIn } = props;
+
+  console.log(props);
 
   useEffect(() => {
     window.gapi.load("client:auth2", () => {
@@ -13,20 +18,24 @@ function App() {
         })
         .then(() => {
           auth.current = window.gapi.auth2.getAuthInstance();
-          setSignIn(auth.current.isSignedIn.get());
+          authChange(auth.current.isSignedIn.get());
           auth.current.isSignedIn.listen(authChange);
         });
     });
   }, []);
 
-  const authChange = () => {
-    setSignIn(auth.current.isSignedIn.get());
+  const authChange = isSignIn => {
+    if (isSignIn) {
+      signIn(auth.current.currentUser.get().getId());
+    } else {
+      signOut();
+    }
   };
 
   const renderAuth = () => {
-    if (signIn === null) {
+    if (isSignIn === null) {
       return <div>wait..</div>;
-    } else if (signIn) {
+    } else if (isSignIn) {
       return (
         <button onClick={auth.current.signOut} className="ui red google button">
           <i className="google icon" />
@@ -43,8 +52,20 @@ function App() {
     }
   };
 
-  console.log(auth.current);
   return <div>{renderAuth()}</div>;
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isSignIn: state.Auth.isSign,
+    userId: state.Auth.userId
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    signIn,
+    signOut
+  }
+)(App);
