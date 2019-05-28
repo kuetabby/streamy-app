@@ -9,7 +9,9 @@ import App from "./App";
 import reducers from "./reducers";
 import * as serviceWorker from "./serviceWorker";
 
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const composeEnchancers =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnchancers(applyMiddleware(thunk)));
 console.log(store.getState());
 
 ReactDOM.render(
