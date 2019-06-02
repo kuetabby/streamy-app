@@ -5,7 +5,6 @@ import { createStream } from "./actions";
 
 function App(props) {
   const { createStream } = props;
-  console.log(props);
 
   const renderError = ({ error, touched }) => {
     if (error && touched) {
