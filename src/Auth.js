@@ -7,8 +7,6 @@ function App(props) {
   const auth = useRef();
   const { signIn, signOut, isSignIn } = props;
 
-  console.log(props);
-
   useEffect(() => {
     window.gapi.load("client:auth2", () => {
       window.gapi.client
@@ -57,8 +55,8 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    isSignIn: state.Auth.isSign,
-    userId: state.Auth.userId
+    isSignIn: state.auth.isSign,
+    userId: state.auth.userId
   };
 };
 
