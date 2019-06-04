@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src"
+  },
+  "exclude": [
+    "build",
+    "coverage",
+    "cypress/screenshots",
+    "cypress/videos",
+    "node_modules",
+    "storybook-static"
+  ]
+}
