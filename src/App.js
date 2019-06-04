@@ -1,11 +1,12 @@
 import React from "react";
 import { Router, Route } from "react-router-dom";
-import List from "./List";
-import Header from "./Header";
 import history from "./History";
 
-import Create from "./Create";
-import Edit from "./Edit";
+import Header from "./components/reusable/Header";
+import List from "./components/stream/List";
+import Create from "./components/stream/Create";
+import Edit from "./components/stream/Edit";
+import Deleted from "./components/stream/Delete";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route exact path="/" component={List} />
           <Route path="/Stream/Create" component={Create} />
           <Route path="/Stream/Edit/:id" component={Edit} />
-          <Route />
+          <Route path="/Stream/Delete/:id" component={Deleted} />
           <Route />
         </div>
       </Router>
