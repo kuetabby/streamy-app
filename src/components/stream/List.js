@@ -39,7 +39,9 @@ function App(props) {
           {renderButton(stream)}
           <i className="large middle aligned icon camera" />
           <div className="content">
-            {stream.title}
+            <NavLink className="header" to={`/Stream/${stream.id}`}>
+              {stream.title}
+            </NavLink>
             <div className="description">{stream.description}</div>
           </div>
         </div>
